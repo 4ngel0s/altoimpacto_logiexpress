@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1 class="h3 mb-1">
+            {{ cliente.nome }}
+        </h1>
+
+        <p class="text-secondary mb-0">
+            Detalhes do cliente
+        </p>
+    </div>
+
+    <div class="d-flex gap-2">
+
+        <a
+            href="{{ url_for('clientes_list') }}"
+            class="btn btn-outline-secondary"
+        >
+            Voltar
+        </a>
+
+        <a
+            href="{{ url_for('clientes_editar', cliente_id=cliente.id) }}"
+            class="btn btn-primary"
+        >
+            Editar
+        </a>
+
+    </div>
+
+</div>
+
+<div class="row g-3">
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-semibold">
+                Dados cadastrais
+            </div>
+
+            <div class="card-body">
+
+                <dl class="row mb-0">
+
+                    <dt class="col-sm-4">
+                        ID
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        {{ cliente.id }}
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        Nome
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        {{ cliente.nome }}
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        Documento
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        {{ cliente.documento }}
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        Cidade
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        {{ cliente.cidade }}
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        UF
+                    </dt>
+
+                    <dd class="col-sm-8">
+                        {{ cliente.uf }}
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        Status
+                    </dt>
+
+                    <dd class="col-sm-8">
+
+                        {% if cliente.ativo %}
+
+                            <span class="badge text-bg-success">
+                                Ativo
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge text-bg-secondary">
+                                Inativo
+                            </span>
+
+                        {% endif %}
+
+                    </dd>
+
+                </dl>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-semibold">
+                Relacionamentos
+            </div>
+
+            <div class="card-body">
+
+                <div class="display-6">
+                    {{ cliente.pedidos|length }}
+                </div>
+
+                <p class="text-secondary mb-0">
+                    pedido(s) relacionado(s)
+                </p>
+
+                {% if cliente.pedidos|length > 0 %}
+
+                <div class="alert alert-warning mt-3 mb-0 small">
+
+                    Este cliente possui pedidos relacionados.
+                    Por regra de negócio, ele não pode ser excluído.
+
+                </div>
+
+                {% else %}
+
+                <div class="alert alert-info mt-3 mb-0 small">
+
+                    Este cliente ainda não possui pedidos relacionados.
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card shadow-sm mt-3">
+
+    <div class="card-body">
+
+        <h6 class="fw-semibold">
+            Ações
+        </h6>
+
+        <div class="d-flex gap-2">
+
+            <a
+                href="{{ url_for('clientes_editar', cliente_id=cliente.id) }}"
+                class="btn btn-outline-primary"
+            >
+                Editar cliente
+            </a>
+
+            {% if cliente.pedidos|length == 0 %}
+
+            <form
+                method="POST"
+                action="{{ url_for('clientes_excluir', cliente_id=cliente.id) }}"
+                onsubmit="return confirm('Deseja realmente excluir este cliente?');"
+            >
+
+                <button
+                    type="submit"
+                    class="btn btn-outline-danger"
+                >
+                    Excluir cliente
+                </button>
+
+            </form>
+
+            {% else %}
+
+            <button
+                type="button"
+                class="btn btn-outline-danger"
+                disabled
+            >
+                Exclusão bloqueada
+            </button>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

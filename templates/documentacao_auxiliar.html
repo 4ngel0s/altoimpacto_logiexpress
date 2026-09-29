@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Documentação Auxiliar{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+    <div class="mb-4">
+        <h1>Documentação Auxiliar</h1>
+        <p class="text-secondary">Conceitos essenciais para acompanhar o projeto mesmo sem ter cursado todas as disciplinas envolvidas.</p>
+    </div>
+
+    <div class="accordion" id="conceitos">
+        {% set itens = [
+            ('rad','RAD — Rapid Application Development','Desenvolvimento rápido de aplicações. A ideia é construir, testar, obter retorno e evoluir o software em ciclos curtos. No LOGIEXPRESS, os alunos recebem um sistema funcional e desenvolvem novas funcionalidades a partir de requisitos.'),
+            ('python','Python','Linguagem utilizada no backend. No projeto, Python controla as regras de negócio, recebe requisições, consulta o banco e prepara os dados enviados às páginas.'),
+            ('flask','Flask','Microframework web para Python. Ele permite criar rotas como /clientes, receber requisições HTTP e retornar páginas HTML.'),
+            ('git','Git','Sistema de controle de versão. Registra alterações no código e permite trabalhar com branches, commits, comparação de versões e integração de mudanças.'),
+            ('github','GitHub','Plataforma onde o repositório do projeto fica hospedado. É também o local onde os Pull Requests são criados e revisados.'),
+            ('codespaces','GitHub Codespaces','Ambiente de desenvolvimento na nuvem. O aluno pode editar, executar e testar o projeto pelo navegador sem precisar configurar toda a máquina local.'),
+            ('branch','Branch','Uma linha independente de desenvolvimento. Em vez de todos alterarem a branch principal, cada grupo cria uma branch própria para sua funcionalidade.'),
+            ('commit','Commit','Registro de uma unidade de alteração. Um bom commit explica o que foi alterado e cria um ponto de recuperação no histórico.'),
+            ('pr','Pull Request','Pedido para incorporar uma branch a outra. No projeto, o grupo desenvolve e testa sua funcionalidade, faz push e abre um PR para que a integração seja revisada.'),
+            ('html','HTML','Linguagem de marcação usada para estruturar a página: títulos, tabelas, formulários, botões e demais elementos.'),
+            ('css','CSS','Responsável pela aparência da aplicação: espaçamento, tamanhos, cores, layout, responsividade e identidade visual.'),
+            ('sqlite','SQLite','Banco de dados relacional usado localmente pelo LOGIEXPRESS. É um arquivo de banco, simples para aulas e protótipos.'),
+            ('sqlalchemy','SQLAlchemy','Biblioteca ORM. Permite trabalhar com tabelas e registros usando classes e objetos Python, reduzindo a necessidade de escrever SQL diretamente em várias partes da aplicação.'),
+            ('crud','CRUD','Conjunto de operações Create, Read, Update e Delete: criar, consultar, atualizar e excluir registros.'),
+            ('http','HTTP — GET e POST','Protocolo utilizado na comunicação web. GET é usado principalmente para solicitar dados ou páginas; POST é usado para enviar dados para processamento.'),
+            ('jinja','Jinja2','Motor de templates utilizado pelo Flask. Permite inserir dados Python no HTML e criar estruturas como loops e condicionais.'),
+            ('bootstrap','Bootstrap','Biblioteca CSS utilizada para acelerar a construção da interface, especialmente tabelas, formulários, botões, cards e responsividade.')
+        ] %}
+        {% for id, titulo, resumo in itens %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-{{ id }}">
+                <button class="accordion-button {% if not loop.first %}collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ id }}">{{ titulo }}</button>
+            </h2>
+            <div id="collapse-{{ id }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}" data-bs-parent="#conceitos">
+                <div class="accordion-body">
+                    <p>{{ resumo }}</p>
+                    {% if id == 'branch' %}
+                    <h5>Como usaremos</h5>
+                    <pre class="bg-light p-3 rounded">main       → versão estável
+   ↓
+develop    → integração das equipes
+   ↓
+feature/grupo-01-manutencao
+feature/grupo-02-combustivel
+feature/grupo-03-ocorrencias
+...</pre>
+                    <p>Cada grupo trabalha na sua branch. Isso reduz a possibilidade de uma equipe sobrescrever o trabalho da outra.</p>
+                    {% elif id == 'commit' %}
+                    <h5>Exemplo</h5>
+                    <pre class="bg-light p-3 rounded">git add .
+git commit -m "feat: adiciona controle de manutenção"</pre>
+                    <p>O commit deve representar uma alteração coerente. Evite mensagens vagas como <code>alterações</code> ou <code>teste</code>.</p>
+                    {% elif id == 'pr' %}
+                    <h5>Fluxo</h5>
+                    <pre class="bg-light p-3 rounded">Branch do grupo
+      ↓
+Código desenvolvido
+      ↓
+Teste local
+      ↓
+git add / commit
+      ↓
+git push
+      ↓
+Pull Request
+      ↓
+Revisão
+      ↓
+Merge em develop</pre>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

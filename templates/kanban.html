@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Kanban do Produto{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+<h1>Kanban do Produto</h1>
+<p class="text-secondary">Quadro de acompanhamento do backlog e das atividades dos grupos.</p>
+<div class="alert alert-primary"><strong>Sugestão:</strong> usar o GitHub Projects como quadro Kanban, pois ele fica associado ao mesmo repositório. Também é possível usar Trello ou uma lousa física/digital, desde que o status das tarefas seja atualizado.</div>
+<div class="row g-3">
+{% for title, color, desc in [('Backlog','secondary','Ideias e requisitos ainda não iniciados.'),('Ready','info','Tarefas escolhidas e prontas para um grupo iniciar.'),('Em desenvolvimento','primary','Grupo trabalhando na branch da funcionalidade.'),('Code Review','warning','Pull Request aberto aguardando revisão.'),('Teste integrado','dark','Código já integrado em develop e sendo validado.'),('Done','success','Funcionalidade validada e concluída.')] %}
+<div class="col-md-4 col-xl-2"><div class="card h-100 border-{{ color }}"><div class="card-header bg-{{ color }} {% if color in ['warning','info'] %}text-dark{% else %}text-white{% endif %}"><strong>{{ title }}</strong></div><div class="card-body small">{{ desc }}</div></div></div>
+{% endfor %}
+</div>
+<div class="card mt-4"><div class="card-body"><h2 class="h4">Modelo de cartão</h2><pre class="bg-light p-3 rounded">EX-01 — Controle de Manutenção
+Grupo: Grupo 01
+Branch: feature/grupo-01-manutencao
+Responsável: nome do aluno
+Status: Em desenvolvimento
+Critérios de aceite: ...
+Pull Request: #...
+</pre></div></div>
+<div class="card mt-4"><div class="card-body"><h2 class="h4">Regra de sincronização</h2><ol><li>O cartão muda para <strong>Em desenvolvimento</strong> quando a branch é criada.</li><li>Vai para <strong>Code Review</strong> quando o Pull Request é aberto.</li><li>Vai para <strong>Teste integrado</strong> após o merge em <code>develop</code>.</li><li>Vai para <strong>Done</strong> somente após validação.</li></ol></div></div>
+</div>
+{% endblock %}

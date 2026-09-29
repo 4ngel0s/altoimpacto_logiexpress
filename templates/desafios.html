@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% block title %}20 Exercícios{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+<h1>20 Exercícios de Desenvolvimento</h1>
+<p class="text-secondary">Backlog de evolução do LOGIEXPRESS. Os grupos podem iniciar as atividades assim que o ambiente estiver preparado.</p>
+<div class="alert alert-warning"><strong>Regra de integração:</strong> não desenvolver diretamente em <code>main</code>. Cada grupo trabalha em sua branch e entrega por Pull Request para <code>develop</code>.</div>
+<div class="card mb-4"><div class="card-body"><h2 class="h4">Como escolher um exercício</h2><p>O exercício é uma demanda de produto. Antes de programar, o grupo deve entender o requisito, localizar no código os pontos que serão afetados, registrar a tarefa no Kanban e definir sua branch.</p><p>Os exercícios podem ser distribuídos pelo professor ou escolhidos conforme a organização do Kanban. O objetivo é terminar com as funcionalidades integradas em uma única aplicação.</p></div></div>
+<div class="card mb-4"><div class="card-body"><h2 class="h4">Fluxo obrigatório do desenvolvimento</h2><pre class="bg-light p-3 rounded">Kanban → análise → branch → desenvolvimento → teste → commit → push → Pull Request → revisão → merge em develop → teste integrado → main</pre></div></div>
+<div class="accordion mb-4" id="exercicios"><div class="accordion-item">
+<h2 class="accordion-header" id="ex-01"><button class="accordion-button " type="button" data-bs-toggle="collapse" data-bs-target="#collapse-01">Exercício 01 — Controle de Manutenção de Veículos</button></h2>
+<div id="collapse-01" class="accordion-collapse collapse show" data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-01-manutencao</code></p>
+<p><strong>Objetivo:</strong> Criar um módulo para registrar manutenções preventivas e corretivas dos veículos.</p>
+<h5>Requisitos</h5><p>Criar cadastro/listagem/visualização com veículo, tipo, data, quilometragem, descrição, custo e status. Permitir identificar manutenções abertas.</p>
+<h5>Critérios de aceite</h5><p>Não salvar sem veículo, tipo e data; custo não pode ser negativo; listar as manutenções por data.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-02"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-02">Exercício 02 — Controle de Combustível</button></h2>
+<div id="collapse-02" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-02-combustivel</code></p>
+<p><strong>Objetivo:</strong> Registrar abastecimentos e acompanhar consumo por veículo.</p>
+<h5>Requisitos</h5><p>Registrar veículo, data, litros, valor total, quilometragem e posto; calcular valor por litro; exibir histórico por veículo.</p>
+<h5>Critérios de aceite</h5><p>Litros e valor devem ser maiores que zero; valor/litro deve ser calculado automaticamente; validar quilometragem.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-03"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-03">Exercício 03 — Gestão de Ocorrências</button></h2>
+<div id="collapse-03" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-03-ocorrencias</code></p>
+<p><strong>Objetivo:</strong> Evoluir o tratamento de ocorrências de entrega.</p>
+<h5>Requisitos</h5><p>Permitir criar, editar, visualizar e encerrar ocorrências; usar entrega, tipo, descrição, data e status.</p>
+<h5>Critérios de aceite</h5><p>Ocorrência encerrada deve ficar identificada como encerrada; a lista deve destacar ocorrências abertas.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-04"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-04">Exercício 04 — Controle de SLA</button></h2>
+<div id="collapse-04" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-04-sla</code></p>
+<p><strong>Objetivo:</strong> Medir o cumprimento do prazo das entregas.</p>
+<h5>Requisitos</h5><p>Comparar data prevista e data de conclusão; classificar dentro do prazo/atrasada; apresentar percentual de SLA.</p>
+<h5>Critérios de aceite</h5><p>Entrega sem conclusão não pode ser considerada concluída; cálculo do percentual deve estar documentado.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-05"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-05">Exercício 05 — Controle de Estoque</button></h2>
+<div id="collapse-05" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-05-estoque</code></p>
+<p><strong>Objetivo:</strong> Criar visão operacional de estoque dos produtos.</p>
+<h5>Requisitos</h5><p>Adicionar estoque atual e estoque mínimo ou criar estrutura equivalente; registrar entradas e saídas; exibir situação.</p>
+<h5>Critérios de aceite</h5><p>Bloquear saída que gere estoque negativo; destacar estoque abaixo do mínimo.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-06"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-06">Exercício 06 — Timeline da Entrega</button></h2>
+<div id="collapse-06" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-06-timeline</code></p>
+<p><strong>Objetivo:</strong> Exibir o ciclo de uma entrega em ordem cronológica.</p>
+<h5>Requisitos</h5><p>Montar timeline com pedido, saída, ocorrências e conclusão usando dados existentes; identificar data e status de cada evento.</p>
+<h5>Critérios de aceite</h5><p>Eventos devem aparecer ordenados; eventos inexistentes não devem ser inventados.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-07"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-07">Exercício 07 — Classificação de Clientes</button></h2>
+<div id="collapse-07" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-07-clientes</code></p>
+<p><strong>Objetivo:</strong> Adicionar segmentação operacional aos clientes.</p>
+<h5>Requisitos</h5><p>Adicionar classificação/segmento ao Cliente; permitir visualizar e filtrar por classificação.</p>
+<h5>Critérios de aceite</h5><p>Campo deve persistir no banco; lista e tela de detalhes devem exibir a classificação.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-08"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-08">Exercício 08 — Desempenho de Motoristas</button></h2>
+<div id="collapse-08" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-08-motoristas</code></p>
+<p><strong>Objetivo:</strong> Criar indicadores operacionais por motorista.</p>
+<h5>Requisitos</h5><p>Calcular entregas atribuídas, concluídas, atrasadas e percentual de conclusão.</p>
+<h5>Critérios de aceite</h5><p>Tratar motorista sem entregas; valores devem ser derivados do banco, não digitados manualmente.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-09"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-09">Exercício 09 — Gestão de Rotas</button></h2>
+<div id="collapse-09" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-09-rotas</code></p>
+<p><strong>Objetivo:</strong> Evoluir o cadastro de rotas para apoiar a operação.</p>
+<h5>Requisitos</h5><p>Exibir origem, destino, distância, tempo estimado e situação; criar indicador simples de eficiência.</p>
+<h5>Critérios de aceite</h5><p>Validar distância/tempo; evitar valores negativos e explicar o cálculo do indicador.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-10"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-10">Exercício 10 — Dashboard Gerencial</button></h2>
+<div id="collapse-10" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-10-dashboard</code></p>
+<p><strong>Objetivo:</strong> Criar uma visão gerencial adicional do LOGIEXPRESS.</p>
+<h5>Requisitos</h5><p>Selecionar KPIs relevantes; criar pelo menos um indicador calculado e um gráfico ou visualização.</p>
+<h5>Critérios de aceite</h5><p>Todos os números devem vir dos dados do sistema; indicar no código como cada KPI é calculado.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-11"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-11">Exercício 11 — Documentos e Vencimentos de Veículos</button></h2>
+<div id="collapse-11" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-11-documentos-veiculos</code></p>
+<p><strong>Objetivo:</strong> Controlar documentos dos veículos e suas datas de validade.</p>
+<h5>Requisitos</h5><p>Registrar tipo de documento, veículo, número, emissão, vencimento e situação; identificar vencidos e a vencer.</p>
+<h5>Critérios de aceite</h5><p>Não permitir documento sem veículo e tipo; destacar vencidos; criar filtro por situação.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-12"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-12">Exercício 12 — Comprovante de Entrega</button></h2>
+<div id="collapse-12" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-12-comprovante-entrega</code></p>
+<p><strong>Objetivo:</strong> Registrar informações do comprovante de entrega (POD).</p>
+<h5>Requisitos</h5><p>Adicionar à entrega nome de quem recebeu, data/hora de recebimento, observação e confirmação de entrega.</p>
+<h5>Critérios de aceite</h5><p>Só permitir concluir a entrega quando os campos obrigatórios do comprovante estiverem preenchidos.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-13"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-13">Exercício 13 — Rastreamento Simulado</button></h2>
+<div id="collapse-13" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-13-rastreamento</code></p>
+<p><strong>Objetivo:</strong> Simular atualização de posição de uma entrega/veículo sem usar GPS real.</p>
+<h5>Requisitos</h5><p>Criar registros de posição com data/hora, latitude, longitude ou localização textual e status; mostrar a última posição.</p>
+<h5>Critérios de aceite</h5><p>Ordenar posições por data/hora; deixar claro que é uma simulação e não uma integração GPS real.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-14"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-14">Exercício 14 — Endereços de Clientes</button></h2>
+<div id="collapse-14" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-14-enderecos</code></p>
+<p><strong>Objetivo:</strong> Permitir mais de um endereço por cliente.</p>
+<h5>Requisitos</h5><p>Criar entidade Endereço relacionada a Cliente, com tipo, logradouro, número, bairro, cidade, UF, CEP e principal.</p>
+<h5>Critérios de aceite</h5><p>Cliente pode ter vários endereços; somente um endereço pode ser marcado como principal.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-15"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-15">Exercício 15 — Categorias de Produtos</button></h2>
+<div id="collapse-15" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-15-categorias-produtos</code></p>
+<p><strong>Objetivo:</strong> Organizar produtos por categorias.</p>
+<h5>Requisitos</h5><p>Criar categoria e relacioná-la aos produtos; permitir listar produtos por categoria.</p>
+<h5>Critérios de aceite</h5><p>Categoria não pode ser removida se possuir produtos sem tratamento explícito; produto deve exibir categoria.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-16"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-16">Exercício 16 — Indicadores de Transportadoras</button></h2>
+<div id="collapse-16" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-16-transportadoras</code></p>
+<p><strong>Objetivo:</strong> Criar indicadores de desempenho das transportadoras.</p>
+<h5>Requisitos</h5><p>Calcular quantidade de entregas, concluídas, atrasadas e percentual de cumprimento por transportadora.</p>
+<h5>Critérios de aceite</h5><p>Não usar valores digitados; calcular com dados de entregas; tratar transportadora sem entregas.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-17"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-17">Exercício 17 — Busca e Filtros Operacionais</button></h2>
+<div id="collapse-17" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-17-filtros</code></p>
+<p><strong>Objetivo:</strong> Melhorar a consulta dos cadastros e operações.</p>
+<h5>Requisitos</h5><p>Adicionar busca por texto e filtros de status/período em pelo menos um módulo operacional.</p>
+<h5>Critérios de aceite</h5><p>Filtros devem funcionar combinados; limpar filtros deve retornar a lista completa.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-18"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-18">Exercício 18 — Exportação de Relatórios</button></h2>
+<div id="collapse-18" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-18-exportacao</code></p>
+<p><strong>Objetivo:</strong> Permitir exportar um conjunto de dados para CSV.</p>
+<h5>Requisitos</h5><p>Criar uma rota de exportação para um relatório selecionado; gerar arquivo CSV com cabeçalho e dados.</p>
+<h5>Critérios de aceite</h5><p>Arquivo deve abrir em Excel/LibreOffice; valores devem respeitar o conjunto filtrado quando aplicável.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-19"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-19">Exercício 19 — Registro de Auditoria</button></h2>
+<div id="collapse-19" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-19-auditoria</code></p>
+<p><strong>Objetivo:</strong> Registrar ações importantes realizadas no sistema.</p>
+<h5>Requisitos</h5><p>Criar estrutura de auditoria para registrar data/hora, ação, entidade, registro afetado e descrição. Aplicar em pelo menos um CRUD.</p>
+<h5>Critérios de aceite</h5><p>A ação deve ser registrada após operação bem-sucedida; não registrar como concluída uma operação que falhou.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div><div class="accordion-item">
+<h2 class="accordion-header" id="ex-20"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-20">Exercício 20 — Central de Alertas Operacionais</button></h2>
+<div id="collapse-20" class="accordion-collapse collapse " data-bs-parent="#exercicios"><div class="accordion-body">
+<p><strong>Branch sugerida:</strong> <code>feature/grupo-20-alertas</code></p>
+<p><strong>Objetivo:</strong> Criar uma tela de alertas derivados dos dados do sistema.</p>
+<h5>Requisitos</h5><p>Gerar alertas para situações como estoque baixo, entrega atrasada, ocorrência aberta ou documento vencido; permitir visualizar a origem.</p>
+<h5>Critérios de aceite</h5><p>Alertas devem ser derivados dos dados; cada alerta deve indicar tipo, descrição e referência ao registro relacionado.</p>
+<h5>O grupo deverá entregar</h5><ol><li>Código integrado ao LOGIEXPRESS.</li><li>Interface funcional no navegador.</li><li>Validações básicas e regra de negócio definida.</li><li>Teste manual documentado.</li><li>Commits pequenos e descritivos.</li><li>Push da branch.</li><li>Pull Request para <code>develop</code>.</li></ol>
+</div></div></div></div>
+<div class="card border-success"><div class="card-body"><h2 class="h4">Definition of Done — pronto para integração</h2><ul><li>Funcionalidade implementada.</li><li>Aplicação inicia sem erro.</li><li>Fluxo testado no navegador.</li><li>Dados persistem corretamente quando aplicável.</li><li>Não quebrou funcionalidades existentes.</li><li>Commit(s) explicam as alterações.</li><li>Pull Request aberto para <code>develop</code>.</li><li>Kanban atualizado.</li></ul></div></div>
+</div>
+{% endblock %}

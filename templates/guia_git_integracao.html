@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Guia Git e Integração{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+  <h1>Guia Git — Trabalho em Equipe e Integração</h1>
+  <p class="text-secondary">Este guia explica exatamente como o código produzido pelos grupos chegará ao projeto principal.</p>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h4">1. Por que não trabalhar todos na main?</h2>
+      <p>A <code>main</code> representa a versão que deve estar estável. Se dez grupos alterarem diretamente a mesma branch, aumenta o risco de código incompleto, sobrescrita de alterações e conflitos difíceis de resolver.</p>
+      <p>Por isso vamos separar desenvolvimento e versão estável.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4 border-primary">
+    <div class="card-body">
+      <h2 class="h4">2. O que é uma branch?</h2>
+      <p>Uma branch é uma linha independente de desenvolvimento dentro do mesmo repositório. Ela parte de um ponto existente do projeto e permite que uma equipe faça alterações sem modificar imediatamente a versão principal.</p>
+      <pre class="bg-light p-3 rounded">main
+ │
+ └── develop
+      │
+      ├── feature/grupo-01-manutencao
+      ├── feature/grupo-02-combustivel
+      ├── feature/grupo-03-ocorrencias
+      └── feature/grupo-04-sla</pre>
+      <p>Pense na branch como uma cópia controlada do caminho de desenvolvimento, conectada ao mesmo histórico do projeto.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h4">3. O que é um commit?</h2>
+      <p>É um registro no histórico dizendo: <strong>"neste ponto, estas alterações foram gravadas"</strong>.</p>
+      <pre class="bg-light p-3 rounded">git add .
+git commit -m "feat: adiciona controle de manutencao"</pre>
+      <p>O primeiro comando prepara as alterações. O segundo grava essas alterações no histórico local.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h4">4. O que é push?</h2>
+      <p>É o envio dos commits da branch local para o GitHub.</p>
+      <pre class="bg-light p-3 rounded">git push -u origin feature/grupo-01-manutencao</pre>
+      <p>Depois do push, o professor consegue visualizar a branch no repositório remoto.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4 border-success">
+    <div class="card-body">
+      <h2 class="h4">5. O que é Pull Request?</h2>
+      <p>É uma solicitação para incorporar o trabalho de uma branch em outra. No nosso projeto:</p>
+      <pre class="bg-light p-3 rounded">feature/grupo-01-manutencao
+              ↓
+          Pull Request
+              ↓
+           develop</pre>
+      <p>O Pull Request permite revisar arquivos, discutir alterações, verificar testes e decidir quando a funcionalidade está pronta para integração.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h4">6. Processo completo do grupo</h2>
+      <ol>
+        <li>Atualizar <code>develop</code>.</li>
+        <li>Criar a branch do grupo.</li>
+        <li>Implementar somente o requisito recebido.</li>
+        <li>Executar a aplicação.</li>
+        <li>Testar a funcionalidade.</li>
+        <li>Verificar <code>git status</code>.</li>
+        <li>Adicionar os arquivos com <code>git add</code>.</li>
+        <li>Criar um ou mais commits coerentes.</li>
+        <li>Enviar a branch com <code>git push</code>.</li>
+        <li>Abrir o Pull Request para <code>develop</code>.</li>
+        <li>Aguardar revisão e correções, se necessárias.</li>
+        <li>Após aprovação, realizar o merge.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="card mb-4 border-warning">
+    <div class="card-body">
+      <h2 class="h4">7. E se houver conflito?</h2>
+      <p>Conflito acontece quando o Git não consegue decidir automaticamente como combinar duas alterações. Isso é comum quando dois grupos alteram a mesma linha ou região do mesmo arquivo.</p>
+      <p>O procedimento será: identificar o arquivo, abrir os marcadores de conflito, comparar as versões, escolher ou combinar as soluções, testar novamente, criar um commit de resolução e atualizar o Pull Request.</p>
+      <pre class="bg-light p-3 rounded">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+versão atual
+=======
+versão da outra branch
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; outra-branch</pre>
+      <p><strong>Não apague um bloco sem entender o que ele representa.</strong> Em caso de dúvida, pare e peça revisão.</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h2 class="h4">8. Integração final</h2>
+      <p>Depois que todos os grupos tiverem seus Pull Requests integrados em <code>develop</code>, faremos um teste integrado da aplicação inteira.</p>
+      <p>Somente depois da validação a versão de integração será promovida para <code>main</code>.</p>
+      <pre class="bg-light p-3 rounded">feature branches
+      ↓
+   Pull Requests
+      ↓
+    develop
+      ↓
+ teste integrado
+      ↓
+      main
+      ↓
+ versão estável</pre>
+    </div>
+  </div>
+</div>
+{% endblock %}

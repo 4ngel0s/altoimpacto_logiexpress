@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block title %}Documentação Técnica{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+    <div class="mb-4">
+        <h1>Documentação Técnica — LOGIEXPRESS 1.1</h1>
+        <p class="text-secondary mb-0">Engenharia reversa da aplicação: entendendo o sistema a partir do código que já está funcionando.</p>
+    </div>
+
+    <div class="alert alert-primary">
+        <strong>Objetivo:</strong> compreender como cada parte do LOGIEXPRESS se conecta, antes de começar a desenvolver novas funcionalidades.
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">1. Visão geral da arquitetura</h2>
+            <pre class="bg-light p-3 rounded">Navegador
+    ↓
+HTML + Jinja2 + Bootstrap + CSS
+    ↓
+Flask / Python
+    ↓
+SQLAlchemy (ORM)
+    ↓
+SQLite (local) / PostgreSQL (produção)
+    ↓
+Dados</pre>
+            <p>O navegador solicita uma página. O Flask recebe a requisição por uma rota, consulta ou altera os dados por meio do SQLAlchemy e entrega um template HTML preenchido com os dados.</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">2. Estrutura do projeto</h2>
+            <pre class="bg-light p-3 rounded">altoimpacto_logiexpress/
+├── app.py
+├── requirements.txt
+├── render.yaml
+├── README.md
+├── .env.example
+├── static/
+│   ├── style.css
+│   └── images/
+├── templates/
+│   ├── base.html
+│   ├── dashboard.html
+│   ├── list.html
+│   ├── form.html
+│   ├── view.html
+│   ├── reports.html
+│   ├── instrucoes.html
+│   └── clientes/
+│       ├── list.html
+│       ├── form.html
+│       └── view.html
+├── tests/
+└── docs/</pre>
+            <ul>
+                <li><strong>app.py:</strong> backend, modelos, regras de negócio e rotas.</li>
+                <li><strong>templates:</strong> páginas HTML renderizadas pelo Flask/Jinja2.</li>
+                <li><strong>static:</strong> CSS, imagens e demais arquivos estáticos.</li>
+                <li><strong>requirements.txt:</strong> dependências Python.</li>
+                <li><strong>tests:</strong> espaço destinado aos testes automatizados.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">3. O arquivo app.py</h2>
+            <p>O arquivo principal concentra a aplicação Flask. No LOGIEXPRESS ele contém, em linhas gerais:</p>
+            <ol>
+                <li>importação das bibliotecas;</li>
+                <li>criação e configuração do Flask;</li>
+                <li>configuração do banco;</li>
+                <li>modelos SQLAlchemy;</li>
+                <li>dados iniciais (<code>seed_data()</code>);</li>
+                <li>rotas do dashboard e cadastros;</li>
+                <li>CRUD específico de Clientes;</li>
+                <li>relatórios e instruções;</li>
+                <li>criação das tabelas e inicialização do servidor.</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">4. Modelo Cliente</h2>
+            <pre class="bg-light p-3 rounded">class Cliente(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(120), nullable=False)
+    documento = db.Column(db.String(20), unique=True, nullable=False)
+    cidade = db.Column(db.String(80), nullable=False)
+    uf = db.Column(db.String(2), nullable=False)
+    ativo = db.Column(db.Boolean, default=True)
+    pedidos = db.relationship("Pedido", backref="cliente", lazy=True)</pre>
+            <p>Esse modelo representa uma tabela. Cada objeto <code>Cliente</code> representa um registro. A propriedade <code>pedidos</code> representa o relacionamento com os pedidos.</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">5. CRUD de Clientes</h2>
+            <p>O cadastro foi implementado de forma específica para demonstrar o ciclo completo:</p>
+            <table class="table table-bordered align-middle">
+                <thead><tr><th>Operação</th><th>Rota</th><th>O que acontece</th></tr></thead>
+                <tbody>
+                    <tr><td>CREATE</td><td><code>/clientes/novo</code></td><td>Recebe o formulário, valida e grava um cliente.</td></tr>
+                    <tr><td>READ</td><td><code>/clientes</code></td><td>Consulta e lista clientes.</td></tr>
+                    <tr><td>READ</td><td><code>/clientes/&lt;id&gt;</code></td><td>Mostra um cliente individualmente.</td></tr>
+                    <tr><td>UPDATE</td><td><code>/clientes/&lt;id&gt;/editar</code></td><td>Valida e altera os dados.</td></tr>
+                    <tr><td>DELETE</td><td><code>/clientes/&lt;id&gt;/excluir</code></td><td>Exclui somente quando a regra de negócio permite.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="card mb-4 border-warning">
+        <div class="card-body">
+            <h2 class="h4">6. Regra de negócio da exclusão</h2>
+            <p>O sistema não permite apagar um cliente que possua pedidos vinculados.</p>
+            <pre class="bg-light p-3 rounded">quantidade_pedidos = Pedido.query.filter_by(
+    cliente_id=cliente.id
+).count()
+
+if quantidade_pedidos > 0:
+    flash("Não é possível excluir este cliente...", "warning")</pre>
+            <p><strong>Por que isso é importante?</strong> Porque uma aplicação real precisa proteger a integridade dos dados. Um CRUD não deve apenas executar comandos; ele precisa respeitar as regras do negócio.</p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">7. Fluxo de um cadastro</h2>
+            <pre class="bg-light p-3 rounded">Usuário preenche formulário
+        ↓
+HTTP POST /clientes/novo
+        ↓
+Flask recebe request.form
+        ↓
+Validação
+        ↓
+Objeto Cliente(...)
+        ↓
+db.session.add()
+        ↓
+db.session.commit()
+        ↓
+Banco de dados
+        ↓
+redirect()
+        ↓
+GET /clientes
+        ↓
+Jinja2 gera HTML
+        ↓
+Navegador mostra a lista</pre>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">8. Jinja2</h2>
+            <p>Jinja2 permite misturar HTML com dados enviados pelo Flask.</p>
+            <pre class="bg-light p-3 rounded">{% raw %}{% for cliente in clientes %}
+    &lt;tr&gt;
+        &lt;td&gt;{{ cliente.id }}&lt;/td&gt;
+        &lt;td&gt;{{ cliente.nome }}&lt;/td&gt;
+        &lt;td&gt;{{ cliente.cidade }} / {{ cliente.uf }}&lt;/td&gt;
+    &lt;/tr&gt;
+{% endfor %}{% endraw %}</pre>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="h4">9. O que o aluno deve observar</h2>
+            <ul>
+                <li>Uma rota representa uma entrada da aplicação.</li>
+                <li>GET normalmente consulta ou exibe uma página.</li>
+                <li>POST envia dados para processamento.</li>
+                <li>O modelo representa dados persistidos.</li>
+                <li>SQLAlchemy traduz operações Python em operações no banco.</li>
+                <li>O template transforma dados em HTML.</li>
+                <li>Git registra a evolução do código.</li>
+                <li>Uma branch permite desenvolver uma funcionalidade isoladamente.</li>
+                <li>Um Pull Request permite revisar a alteração antes da integração.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

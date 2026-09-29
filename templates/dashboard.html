@@ -1,0 +1,654 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<!-- =========================================================
+     CABEÇALHO DO DASHBOARD
+     ========================================================= -->
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h1 class="h3 mb-1">
+            Dashboard Operacional
+        </h1>
+
+        <p class="text-secondary mb-0">
+            Visão geral da operação logística.
+        </p>
+
+    </div>
+
+
+    <a
+        class="btn btn-primary"
+        href="{{ url_for('reports') }}"
+    >
+        Ver relatórios
+    </a>
+
+</div>
+
+
+<!-- =========================================================
+     INDICADORES DA OPERAÇÃO
+     ========================================================= -->
+
+<div class="mb-4">
+
+    <h2 class="dashboard-section-title">
+        Indicadores da operação
+    </h2>
+
+
+    <div class="dashboard-metrics">
+
+
+        <!-- =================================================
+             PEDIDOS
+             ================================================= -->
+
+        <div class="card metric-card metric-primary shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Pedidos
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ total_pedidos }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ENTREGAS
+             ================================================= -->
+
+        <div class="card metric-card metric-info shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Entregas
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ total_entregas }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ENTREGUES
+             ================================================= -->
+
+        <div class="card metric-card metric-success shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Entregues
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ entregues }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EM ANDAMENTO
+             ================================================= -->
+
+        <div class="card metric-card metric-primary shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Em andamento
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ em_andamento }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ATRASADAS
+             ================================================= -->
+
+        <div class="card metric-card metric-warning shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Atrasadas
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ atrasadas }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CRÍTICAS
+             ================================================= -->
+
+        <div class="card metric-card metric-danger shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Críticas
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ criticas }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             OCORRÊNCIAS ABERTAS
+             ================================================= -->
+
+        <div class="card metric-card metric-orange shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Ocorrências abertas
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ ocorrencias }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ESTOQUE BAIXO
+             ================================================= -->
+
+        <div class="card metric-card metric-danger shadow-sm">
+
+            <div class="card-body">
+
+                <div class="text-secondary small">
+                    Estoque baixo
+                </div>
+
+                <div class="display-6 fw-bold">
+                    {{ estoque_baixo }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     RECURSOS + INFRAESTRUTURA
+     ========================================================= -->
+
+<div class="dashboard-groups mb-4">
+
+
+    <!-- =====================================================
+         RECURSOS OPERACIONAIS
+         ===================================================== -->
+
+    <div>
+
+        <h2 class="dashboard-section-title">
+            Recursos operacionais
+        </h2>
+
+
+        <div class="dashboard-resources">
+
+
+            <!-- Clientes ativos -->
+
+            <div class="card metric-card metric-success shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Clientes ativos
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ clientes_ativos }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Motoristas ativos -->
+
+            <div class="card metric-card metric-info shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Motoristas ativos
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ motoristas_ativos }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Veículos ativos -->
+
+            <div class="card metric-card metric-primary shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Veículos ativos
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ veiculos_ativos }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Transportadoras -->
+
+            <div class="card metric-card metric-orange shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Transportadoras
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ transportadoras_ativas }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         INFRAESTRUTURA LOGÍSTICA
+         ===================================================== -->
+
+    <div>
+
+        <h2 class="dashboard-section-title">
+            Infraestrutura logística
+        </h2>
+
+
+        <div class="dashboard-infrastructure">
+
+
+            <!-- Rotas ativas -->
+
+            <div class="card metric-card metric-purple shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Rotas ativas
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ rotas_ativas }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Centros de distribuição -->
+
+            <div class="card metric-card metric-info shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="text-secondary small">
+                        Centros de distribuição
+                    </div>
+
+                    <div class="display-6 fw-bold">
+                        {{ centros_ativos }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- =========================================================
+     LEGENDA DAS CORES
+     ========================================================= -->
+
+<div class="dashboard-legend mb-3">
+
+    <span class="text-secondary small me-2">
+        Legenda:
+    </span>
+
+    <span class="legend-item legend-primary">
+        <span class="legend-color"></span>
+        Informação
+    </span>
+
+    <span class="legend-item legend-info">
+        <span class="legend-color"></span>
+        Operação
+    </span>
+
+    <span class="legend-item legend-success">
+        <span class="legend-color"></span>
+        Normal / Concluído
+    </span>
+
+    <span class="legend-item legend-warning">
+        <span class="legend-color"></span>
+        Atenção
+    </span>
+
+    <span class="legend-item legend-danger">
+        <span class="legend-color"></span>
+        Crítico
+    </span>
+
+    <span class="legend-item legend-orange">
+        <span class="legend-color"></span>
+        Ocorrência
+    </span>
+
+    <span class="legend-item legend-purple">
+        <span class="legend-color"></span>
+        Infraestrutura
+    </span>
+
+</div>
+
+<!-- =========================================================
+     GRÁFICOS
+     ========================================================= -->
+
+<div class="row g-3">
+
+
+    <!-- =====================================================
+         GRÁFICO - STATUS DAS ENTREGAS
+         ===================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-semibold">
+                Status das entregas
+            </div>
+
+            <div class="card-body dashboard-chart">
+
+                <canvas id="graficoStatusEntregas"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         GRÁFICO - ENTREGAS POR MOTORISTA
+         ===================================================== -->
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-sm h-100">
+
+            <div class="card-header fw-semibold">
+                Entregas por motorista
+            </div>
+
+            <div class="card-body dashboard-chart">
+
+                <canvas id="graficoEntregasMotorista"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =========================================================
+     CHART.JS
+     Biblioteca utilizada para os gráficos.
+     ========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+
+    /* ========================================================
+       GRÁFICO 1
+       STATUS DAS ENTREGAS
+       ========================================================
+
+       Os dados são enviados pelo Flask.
+
+       O filtro "tojson" converte as listas Python
+       para um formato que o JavaScript consegue utilizar.
+    */
+
+
+    const statusLabels =
+        {{ grafico_status_labels | tojson }};
+
+
+    const statusValores =
+        {{ grafico_status_valores | tojson }};
+
+
+    new Chart(
+        document.getElementById("graficoStatusEntregas"),
+        {
+
+            type: "bar",
+
+
+            data: {
+
+                labels: statusLabels,
+
+
+                datasets: [
+                    {
+
+                        label: "Quantidade de entregas",
+
+                        data: statusValores
+
+                    }
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+
+                        ticks: {
+                            precision: 0
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* ========================================================
+       GRÁFICO 2
+       ENTREGAS POR MOTORISTA
+       ======================================================== */
+
+
+    const motoristaLabels =
+        {{ grafico_motorista_labels | tojson }};
+
+
+    const motoristaValores =
+        {{ grafico_motorista_valores | tojson }};
+
+
+    new Chart(
+        document.getElementById("graficoEntregasMotorista"),
+        {
+
+            type: "bar",
+
+
+            data: {
+
+                labels: motoristaLabels,
+
+
+                datasets: [
+                    {
+
+                        label: "Entregas",
+
+                        data: motoristaValores
+
+                    }
+                ]
+
+            },
+
+
+            options: {
+
+                responsive: true,
+
+
+                plugins: {
+
+                    legend: {
+                        display: false
+                    }
+
+                },
+
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+
+                        ticks: {
+                            precision: 0
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+
+</script>
+
+
+{% endblock %}

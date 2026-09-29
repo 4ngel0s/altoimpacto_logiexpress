@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Instruções 29/09{% endblock %}
+{% block content %}
+<div class="container-fluid py-3">
+  <div class="mb-4">
+    <h1>Instruções — 29/09</h1>
+    <p class="text-secondary">Preparação do ambiente, leitura do sistema e início do desenvolvimento colaborativo do LOGIEXPRESS.</p>
+  </div>
+  <div class="alert alert-primary"><strong>Objetivo:</strong> acessar o ambiente, entender a aplicação existente e iniciar o trabalho de desenvolvimento. Os exercícios podem começar a ser executados imediatamente após a preparação.</div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h4">1. Acesso ao GitHub</h2><ol><li>Acesse o GitHub e confirme sua conta.</li><li>Entre no repositório da turma/projeto.</li><li>Verifique se consegue visualizar os arquivos do LOGIEXPRESS.</li><li>Ative autenticação em dois fatores ou passkey quando disponível.</li></ol></div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h4">2. GitHub Codespaces</h2><ol><li>Abra o repositório.</li><li>Crie ou abra o Codespace.</li><li>Confirme que o projeto aparece no Explorer.</li><li>Use o Terminal integrado para executar os comandos.</li></ol></div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h4">3. Conheça o projeto</h2><pre class="bg-light p-3 rounded">app.py
+templates/
+static/
+tests/
+docs/
+requirements.txt
+README.md
+render.yaml</pre><p>Antes de alterar qualquer código, abra os arquivos e identifique onde ficam o backend, as páginas HTML, os estilos, os testes e a configuração de dependências.</p></div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h4">4. Execute a aplicação</h2><pre class="bg-light p-3 rounded">python3 app.py</pre><p>Abra a porta disponibilizada pelo Codespace e confirme que o Dashboard, Cadastros, Relatórios e documentação estão funcionando.</p></div></div>
+  <div class="card mb-3"><div class="card-body"><h2 class="h4">5. Antes de desenvolver</h2><ul><li>Leia a Documentação Técnica.</li><li>Leia a Documentação Auxiliar se algum conceito for novo.</li><li>Leia o Guia Git e Integração.</li><li>Escolha ou receba um dos 20 exercícios.</li><li>Entre no Kanban e registre a atividade como Backlog/Ready antes de iniciar.</li></ul></div></div>
+  <div class="card border-success"><div class="card-body"><h2 class="h4">Ambiente preparado</h2><p>Quando o sistema estiver abrindo no navegador e você conseguir localizar o código, a documentação, o Git e o Kanban, você está pronto para iniciar um exercício.</p></div></div>
+</div>
+{% endblock %}

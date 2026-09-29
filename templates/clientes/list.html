@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Clientes</h1>
+        <p class="text-secondary mb-0">
+            Cadastro e gerenciamento de clientes do LOGIEXPRESS.
+        </p>
+    </div>
+
+    <a href="{{ url_for('clientes_novo') }}" class="btn btn-primary">
+        + Novo Cliente
+    </a>
+</div>
+
+<div class="card shadow-sm">
+
+    <div class="card-header fw-semibold">
+        Clientes cadastrados
+    </div>
+
+    <div class="card-body">
+
+        {% if clientes %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>Cidade</th>
+                        <th>UF</th>
+                        <th>Status</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for cliente in clientes %}
+
+                    <tr>
+
+                        <td>{{ cliente.id }}</td>
+
+                        <td class="fw-semibold">
+                            {{ cliente.nome }}
+                        </td>
+
+                        <td>
+                            {{ cliente.documento }}
+                        </td>
+
+                        <td>
+                            {{ cliente.cidade }}
+                        </td>
+
+                        <td>
+                            {{ cliente.uf }}
+                        </td>
+
+                        <td>
+                            {% if cliente.ativo %}
+                                <span class="badge text-bg-success">
+                                    Ativo
+                                </span>
+                            {% else %}
+                                <span class="badge text-bg-secondary">
+                                    Inativo
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-end table-actions">
+
+                            <a
+                                href="{{ url_for('clientes_view', cliente_id=cliente.id) }}"
+                                class="btn btn-sm btn-outline-primary"
+                            >
+                                Ver
+                            </a>
+
+                            <a
+                                href="{{ url_for('clientes_editar', cliente_id=cliente.id) }}"
+                                class="btn btn-sm btn-outline-secondary"
+                            >
+                                Editar
+                            </a>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('clientes_excluir', cliente_id=cliente.id) }}"
+                                class="d-inline"
+                                onsubmit="return confirm('Deseja realmente excluir este cliente?');"
+                            >
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                >
+                                    Excluir
+                                </button>
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-info mb-0">
+            Nenhum cliente cadastrado.
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
