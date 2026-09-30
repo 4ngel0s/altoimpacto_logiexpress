@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Ocorrência #{{ ocorrencia.id }}</h1>
+        <p class="text-secondary mb-0">Detalhes da ocorrência de entrega.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('ocorrencias_list') }}" class="btn btn-outline-secondary">Voltar</a>
+        <a href="{{ url_for('ocorrencias_editar', ocorrencia_id=ocorrencia.id) }}" class="btn btn-primary">Editar</a>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Status</dt>
+            <dd class="col-sm-9">
+                {% if ocorrencia.status == 'ABERTA' %}
+                <span class="badge text-bg-warning">Aberta</span>
+                {% else %}
+                <span class="badge text-bg-success">Encerrada</span>
+                {% endif %}
+            </dd>
+            <dt class="col-sm-3">Entrega</dt>
+            <dd class="col-sm-9">#{{ ocorrencia.entrega_id }}</dd>
+            <dt class="col-sm-3">Tipo</dt>
+            <dd class="col-sm-9">{{ ocorrencia.tipo }}</dd>
+            <dt class="col-sm-3">Data</dt>
+            <dd class="col-sm-9">{{ ocorrencia.data.strftime('%d/%m/%Y') }}</dd>
+            <dt class="col-sm-3">Descrição</dt>
+            <dd class="col-sm-9">{{ ocorrencia.descricao }}</dd>
+        </dl>
+    </div>
+</div>
+
+{% if ocorrencia.status == 'ABERTA' %}
+<div class="mt-3">
+    <form method="post" action="{{ url_for('ocorrencias_encerrar', ocorrencia_id=ocorrencia.id) }}">
+        <button type="submit" class="btn btn-success">Encerrar ocorrência</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
