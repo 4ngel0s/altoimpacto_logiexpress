@@ -1252,14 +1252,58 @@ Port 5000 is in use by another program.</code></pre>
             </p>
             <pre class="bg-dark text-light rounded p-3"><code>python3  6383
 python3  6417</code></pre>
-            <p><strong>2. Encerre os processos identificados:</strong></p>
+            <p><strong>2. Tente encerrar os processos identificados:</strong></p>
             <pre class="bg-dark text-light rounded p-3"><code>kill 6383 6417</code></pre>
             <div class="alert alert-warning">
                 <strong>Atenção:</strong> os números acima são apenas exemplos.
                 Use os PIDs mostrados pelo seu próprio <code>lsof -i :5000</code>.
+                Não copie os PIDs deste exemplo.
             </div>
-            <p><strong>3. Inicie novamente:</strong></p>
+
+            <p><strong>3. Confirme se a porta foi liberada:</strong></p>
+            <pre class="bg-dark text-light rounded p-3"><code>lsof -i :5000</code></pre>
+
+            <p>
+                Se o comando não retornar nenhuma linha, a porta está livre.
+                Nesse caso, vá para o passo 5.
+            </p>
+
+            <p><strong>4. Se o processo continuar ativo, force o encerramento:</strong></p>
+            <pre class="bg-dark text-light rounded p-3"><code>kill -9 6383 6417</code></pre>
+
+            <div class="alert alert-danger">
+                <strong>Use <code>kill -9</code> somente quando necessário.</strong>
+                Esse comando força o encerramento do processo. No laboratório,
+                utilize-o apenas nos PIDs que você identificou como responsáveis
+                pela execução do Flask.
+            </div>
+
+            <p>
+                Depois confirme novamente:
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>lsof -i :5000</code></pre>
+
+            <p>
+                Se não aparecer nenhuma linha, a porta 5000 está livre.
+            </p>
+
+            <p><strong>5. Inicie novamente a aplicação:</strong></p>
             <pre class="bg-dark text-light rounded p-3"><code>python3 app.py</code></pre>
+
+            <div class="border rounded bg-light p-3 mt-3">
+                <strong>Fluxo de diagnóstico:</strong>
+                <div class="small mt-2">
+                    <code>python3 app.py</code>
+                    → porta ocupada
+                    → <code>lsof -i :5000</code>
+                    → identificar PID
+                    → <code>kill PID</code>
+                    → verificar novamente
+                    → se necessário <code>kill -9 PID</code>
+                    → verificar
+                    → <code>python3 app.py</code>
+                </div>
+            </div>
 
             <hr class="my-4">
 
