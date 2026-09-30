@@ -432,6 +432,49 @@ def dashboard():
         grafico_motorista_valores=grafico_motorista_valores
     )
 
+@app.route("/estoque")
+def estoque_list():
+    produtos = Produto.query.order_by(Produto.descricao).all()
+    return render_template("estoque/list.html", produtos=produtos)
+
+@app.route("/estoque/<int:produto_id>/movimentar", methods=["GET", "POST"])
+def estoque_movimentar(produto_id):
+    produto = db.get_or_404(Produto, produto_id)
+
+    if request.method == "POST":
+        tipo_movimento = request.form.get("tipo")
+        quantidade_str = request.form.get("quantidade", "0")
+
+        try:
+            quantidade = int(quantidade_str)
+            if quantidade <= 0:
+                flash("A quantidade deve ser maior que zero.", "warning")
+                return render_template("estoque/form.html", produto=produto)
+        except ValueError:
+            flash("Quantidade inválida.", "danger")
+            return render_template("estoque/form.html", produto=produto)
+
+        if tipo_movimento == "entrada":
+            produto.estoque += quantidade
+            flash(f"Entrada de {quantidade} itens registrada com sucesso.", "success")
+            
+        elif tipo_movimento == "saida":
+            if produto.estoque - quantidade < 0:
+                flash(f"Operação bloqueada: A saída de {quantidade} itens deixaria o estoque negativo. Estoque atual: {produto.estoque}.", "danger")
+                return render_template("estoque/form.html", produto=produto)
+            
+            produto.estoque -= quantidade
+            flash(f"Saída de {quantidade} itens registrada com sucesso.", "success")
+        else:
+            flash("Tipo de movimento inválido.", "danger")
+            return render_template("estoque/form.html", produto=produto)
+
+        db.session.commit()
+        return redirect(url_for("estoque_list"))
+
+    return render_template("estoque/form.html", produto=produto)
+
+
 @app.route("/cadastros/<entity>")
 def list_entity(entity):
     """

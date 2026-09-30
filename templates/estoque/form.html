@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Movimentar Estoque</h2>
+    
+    <div class="card mt-4" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white">
+            <strong>Produto:</strong> {{ produto.descricao }} ({{ produto.codigo }})
+        </div>
+        <div class="card-body">
+            <h5 class="card-title text-muted mb-4">
+                Estoque Atual: <span class="badge bg-secondary fs-5">{{ produto.estoque }}</span>
+            </h5>
+
+            <form method="POST">
+                <!-- Tipo de Movimento (Entrada ou Saída) -->
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo de Movimento</label>
+                    <select name="tipo" id="tipo" class="form-select" required>
+                        <option value="" disabled selected>Selecione...</option>
+                        <option value="entrada">Entrada (+)</option>
+                        <option value="saida">Saída (-)</option>
+                    </select>
+                </div>
+                
+                <!-- Quantidade -->
+                <div class="mb-4">
+                    <label for="quantidade" class="form-label">Quantidade</label>
+                    <input type="number" name="quantidade" id="quantidade" class="form-control" min="1" placeholder="Ex: 10" required>
+                </div>
+                
+                <!-- Botões -->
+                <button type="submit" class="btn btn-success">Confirmar Movimentação</button>
+                <a href="{{ url_for('estoque_list') }}" class="btn btn-outline-secondary ms-2">Cancelar e Voltar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
