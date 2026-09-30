@@ -1188,6 +1188,237 @@ git push -u origin feature/manutencao-veiculos
     </div>
 
 
+
+    <!-- =========================================================
+         SITUAÇÕES COMUNS E SOLUÇÕES
+         ========================================================= -->
+    <div class="card shadow-sm mb-4 border-warning">
+        <div class="card-header fw-semibold text-warning-emphasis">
+            🛠️ Situações comuns — o que fazer quando algo dá errado?
+        </div>
+        <div class="card-body">
+            <p>
+                Durante o desenvolvimento, mensagens de erro e avisos são normais.
+                O objetivo é aprender a <strong>interpretar a mensagem</strong>,
+                diagnosticar a causa e executar o procedimento correto.
+            </p>
+
+            <div class="border rounded bg-light p-3 mb-4 text-center">
+                <svg viewBox="0 0 1000 260" class="img-fluid" role="img"
+                     aria-label="Fluxo para diagnosticar problemas">
+                    <rect x="50" y="70" width="200" height="85" rx="15"
+                          fill="#fff3cd" stroke="#856404" stroke-width="3"/>
+                    <text x="150" y="108" text-anchor="middle"
+                          font-size="20" font-weight="bold">Mensagem</text>
+                    <text x="150" y="134" text-anchor="middle"
+                          font-size="14">erro ou aviso</text>
+                    <line x1="250" y1="112" x2="380" y2="112"
+                          stroke="#6c757d" stroke-width="6"/>
+                    <polygon points="380,112 355,97 355,127" fill="#6c757d"/>
+                    <rect x="380" y="70" width="240" height="85" rx="15"
+                          fill="#e9ecef" stroke="#212529" stroke-width="2"/>
+                    <text x="500" y="108" text-anchor="middle"
+                          font-size="20" font-weight="bold">Diagnóstico</text>
+                    <text x="500" y="134" text-anchor="middle"
+                          font-size="14">verifique a causa</text>
+                    <line x1="620" y1="112" x2="750" y2="112"
+                          stroke="#6c757d" stroke-width="6"/>
+                    <polygon points="750,112 725,97 725,127" fill="#6c757d"/>
+                    <rect x="750" y="70" width="200" height="85" rx="15"
+                          fill="#d1e7dd" stroke="#198754" stroke-width="3"/>
+                    <text x="850" y="108" text-anchor="middle"
+                          font-size="20" font-weight="bold">Correção</text>
+                    <text x="850" y="134" text-anchor="middle"
+                          font-size="14">execute o procedimento</text>
+                    <text x="500" y="210" text-anchor="middle"
+                          font-size="17" fill="#495057">
+                        Leia a mensagem antes de tentar outros comandos.
+                    </text>
+                </svg>
+            </div>
+
+            <h3 class="h5">🔴 Situação 1 — A porta 5000 já está em uso</h3>
+            <p>
+                Isso acontece quando outro processo já está executando o Flask na porta 5000,
+                por exemplo, quando <code>python3 app.py</code> foi iniciado novamente sem
+                encerrar a execução anterior.
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>Address already in use
+Port 5000 is in use by another program.</code></pre>
+            <p><strong>1. Descubra quem está usando a porta:</strong></p>
+            <pre class="bg-dark text-light rounded p-3"><code>lsof -i :5000</code></pre>
+            <p>
+                Localize o <strong>PID</strong> apresentado. Exemplo:
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>python3  6383
+python3  6417</code></pre>
+            <p><strong>2. Encerre os processos identificados:</strong></p>
+            <pre class="bg-dark text-light rounded p-3"><code>kill 6383 6417</code></pre>
+            <div class="alert alert-warning">
+                <strong>Atenção:</strong> os números acima são apenas exemplos.
+                Use os PIDs mostrados pelo seu próprio <code>lsof -i :5000</code>.
+            </div>
+            <p><strong>3. Inicie novamente:</strong></p>
+            <pre class="bg-dark text-light rounded p-3"><code>python3 app.py</code></pre>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🔵 Situação 2 — Não sei em qual branch estou</h3>
+            <pre class="bg-dark text-light rounded p-3"><code>git branch</code></pre>
+            <p>
+                A branch marcada com <code>*</code> é a branch ativa.
+                Antes de alterar arquivos, confirme que você está na sua
+                <code>feature/...</code>.
+            </p>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🟡 Situação 3 — Minha develop está desatualizada</h3>
+            <p>Atualize a branch antes de criar uma nova funcionalidade:</p>
+            <pre class="bg-dark text-light rounded p-3"><code>git fetch origin
+git checkout develop
+git pull origin develop</code></pre>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🟠 Situação 4 — Não sei o que alterei</h3>
+            <p>Primeiro veja os arquivos modificados:</p>
+            <pre class="bg-dark text-light rounded p-3"><code>git status</code></pre>
+            <p>Depois confira exatamente as diferenças:</p>
+            <pre class="bg-dark text-light rounded p-3"><code>git diff</code></pre>
+            <div class="alert alert-info">
+                Use esses comandos antes de <code>git add .</code> para saber
+                o que será registrado.
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🟣 Situação 5 — Fiz commit, mas não aparece no GitHub</h3>
+            <p>
+                <code>commit</code> registra a alteração localmente.
+                <code>push</code> publica a branch no GitHub.
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>git status
+git push</code></pre>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🔴 Situação 6 — Apareceu 403 ou permission denied</h3>
+            <pre class="bg-dark text-light rounded p-3"><code>remote: Permission to ... denied
+fatal: unable to access ...</code></pre>
+            <div class="alert alert-danger">
+                Pare e informe o professor. A conta utilizada pode não possuir
+                permissão de escrita no repositório ou branch. Não tente contornar
+                a permissão.
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🟤 Situação 7 — O Pull Request está com destino errado</h3>
+            <p>Para a prática, confira:</p>
+            <pre class="bg-dark text-light rounded p-3"><code>base: develop
+compare: feature/manutencao-veiculos</code></pre>
+            <div class="alert alert-warning">
+                O fluxo esperado é <strong>feature → Pull Request → develop</strong>.
+                Não utilize <code>main</code> como destino da atividade.
+            </div>
+
+            <hr class="my-4">
+
+            <h3 class="h5">🟢 Situação 8 — O professor pediu uma correção no Pull Request</h3>
+            <p>
+                Continue na <strong>mesma branch</strong>. Não crie outra branch
+                apenas para corrigir o código.
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>git status
+git diff
+git add .
+git commit -m "Corrige validação da funcionalidade"
+git push</code></pre>
+            <p>O Pull Request existente será atualizado automaticamente.</p>
+
+            <hr class="my-4">
+
+            <h3 class="h5">⚠️ Situação 9 — Apareceu um conflito no Git</h3>
+            <p>
+                Primeiro descubra quais arquivos estão envolvidos:
+            </p>
+            <pre class="bg-dark text-light rounded p-3"><code>git status</code></pre>
+            <p>
+                Se houver conflito, abra os arquivos indicados no VS Code e
+                analise as versões apresentadas. Se não entender o conflito,
+                pare e peça orientação ao professor antes de continuar.
+            </p>
+
+            <h3 class="h5 mt-4">📋 Tabela rápida — “apareceu isso, faça aquilo”</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Situação</th>
+                            <th>Primeiro comando/procedimento</th>
+                            <th>Objetivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Port 5000 is in use</td>
+                            <td><code>lsof -i :5000</code></td>
+                            <td>Descobrir o processo que ocupa a porta.</td>
+                        </tr>
+                        <tr>
+                            <td>Não sei minha branch</td>
+                            <td><code>git branch</code></td>
+                            <td>Identificar a branch ativa.</td>
+                        </tr>
+                        <tr>
+                            <td>Develop desatualizada</td>
+                            <td><code>git pull origin develop</code></td>
+                            <td>Atualizar a cópia local.</td>
+                        </tr>
+                        <tr>
+                            <td>Não sei o que alterei</td>
+                            <td><code>git status</code> + <code>git diff</code></td>
+                            <td>Revisar as alterações.</td>
+                        </tr>
+                        <tr>
+                            <td>Commit não aparece no GitHub</td>
+                            <td><code>git push</code></td>
+                            <td>Publicar os commits.</td>
+                        </tr>
+                        <tr>
+                            <td>403 / permission denied</td>
+                            <td>Parar e chamar o professor</td>
+                            <td>Verificar permissões.</td>
+                        </tr>
+                        <tr>
+                            <td>PR com destino errado</td>
+                            <td>Conferir base/compare</td>
+                            <td>Garantir <code>feature → develop</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>PR pediu correção</td>
+                            <td>Corrigir na mesma branch e <code>git push</code></td>
+                            <td>Atualizar o PR existente.</td>
+                        </tr>
+                        <tr>
+                            <td>Conflito de merge</td>
+                            <td><code>git status</code></td>
+                            <td>Identificar os arquivos em conflito.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="alert alert-success mb-0">
+                <strong>Aprendizado importante:</strong>
+                erros fazem parte do desenvolvimento. O profissional aprende a
+                interpretar a mensagem, investigar a causa e aplicar o procedimento adequado.
+            </div>
+        </div>
+    </div>
+
+
     <!-- =========================================================
          CHECKLIST
          ========================================================= -->
