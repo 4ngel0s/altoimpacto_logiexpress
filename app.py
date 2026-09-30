@@ -443,11 +443,151 @@ def list_entity(entity):
     if entity == "clientes":
         return redirect(url_for("clientes_list"))
 
+    if entity == "ocorrencias":
+        return redirect(url_for("ocorrencias_list"))
+
     if entity not in MODEL_MAP:
         return "Recurso não encontrado", 404
     model, title = MODEL_MAP[entity]
     records = model.query.order_by(model.id.desc()).all()
     return render_template("list.html", entity=entity, title=title, records=records, model=model)
+
+
+OCORRENCIA_STATUS = ("ABERTA", "ENCERRADA")
+
+
+def validate_ocorrencia_form():
+    data = request.form
+    errors = []
+    entrega_id = data.get("entrega_id", "").strip()
+    tipo = data.get("tipo", "").strip()
+    descricao = data.get("descricao", "").strip()
+    data_ocorrencia = data.get("data", "").strip()
+    status = data.get("status", "").strip().upper()
+
+    try:
+        entrega_id = int(entrega_id)
+    except (TypeError, ValueError):
+        errors.append("Selecione uma entrega válida.")
+        entrega_id = None
+
+    if entrega_id is not None and db.session.get(Entrega, entrega_id) is None:
+        errors.append("A entrega informada não existe.")
+    if not tipo:
+        errors.append("Informe o tipo da ocorrência.")
+    if not descricao:
+        errors.append("Informe a descrição da ocorrência.")
+    elif len(descricao) > 255:
+        errors.append("A descrição deve ter no máximo 255 caracteres.")
+    try:
+        data_ocorrencia = date.fromisoformat(data_ocorrencia)
+    except (TypeError, ValueError):
+        errors.append("Informe uma data válida.")
+        data_ocorrencia = None
+    if status not in OCORRENCIA_STATUS:
+        errors.append("Informe um status válido.")
+
+    return {
+        "entrega_id": entrega_id,
+        "tipo": tipo,
+        "descricao": descricao,
+        "data": data_ocorrencia,
+        "status": status,
+    }, errors
+
+
+def ocorrencia_form_data(ocorrencia=None):
+    if ocorrencia is None:
+        return {
+            "entrega_id": "",
+            "tipo": "",
+            "descricao": "",
+            "data": date.today().isoformat(),
+            "status": "ABERTA",
+        }
+    return {
+        "entrega_id": ocorrencia.entrega_id,
+        "tipo": ocorrencia.tipo,
+        "descricao": ocorrencia.descricao,
+        "data": ocorrencia.data.isoformat(),
+        "status": ocorrencia.status,
+    }
+
+
+@app.route("/ocorrencias")
+def ocorrencias_list():
+    ocorrencias = Ocorrencia.query.order_by(
+        db.case((Ocorrencia.status == "ABERTA", 0), else_=1),
+        Ocorrencia.data.desc(),
+        Ocorrencia.id.desc(),
+    ).all()
+    return render_template("ocorrencias/list.html", ocorrencias=ocorrencias)
+
+
+@app.route("/ocorrencias/novo", methods=["GET", "POST"])
+def ocorrencias_novo():
+    form_data = ocorrencia_form_data()
+    if request.method == "POST":
+        form_data, errors = validate_ocorrencia_form()
+        if not errors:
+            ocorrencia = Ocorrencia(**form_data)
+            db.session.add(ocorrencia)
+            db.session.commit()
+            flash("Ocorrência criada com sucesso.", "success")
+            return redirect(url_for("ocorrencias_view", ocorrencia_id=ocorrencia.id))
+        for error in errors:
+            flash(error, "warning")
+    return render_template(
+        "ocorrencias/form.html",
+        form_data=form_data,
+        entregas=Entrega.query.order_by(Entrega.id.desc()).all(),
+        title="Nova ocorrência",
+    )
+
+
+@app.route("/ocorrencias/<int:ocorrencia_id>")
+def ocorrencias_view(ocorrencia_id):
+    ocorrencia = db.get_or_404(Ocorrencia, ocorrencia_id)
+    return render_template("ocorrencias/view.html", ocorrencia=ocorrencia)
+
+
+@app.route("/ocorrencias/<int:ocorrencia_id>/editar", methods=["GET", "POST"])
+def ocorrencias_editar(ocorrencia_id):
+    ocorrencia = db.get_or_404(Ocorrencia, ocorrencia_id)
+    form_data = ocorrencia_form_data(ocorrencia)
+    if request.method == "POST":
+        form_data, errors = validate_ocorrencia_form()
+        if ocorrencia.status == "ENCERRADA" and form_data["status"] == "ABERTA":
+            errors.append("Uma ocorrência encerrada não pode ser reaberta.")
+        if not errors:
+            ocorrencia.entrega_id = form_data["entrega_id"]
+            ocorrencia.tipo = form_data["tipo"]
+            ocorrencia.descricao = form_data["descricao"]
+            ocorrencia.data = form_data["data"]
+            ocorrencia.status = form_data["status"]
+            db.session.commit()
+            flash("Ocorrência atualizada com sucesso.", "success")
+            return redirect(url_for("ocorrencias_view", ocorrencia_id=ocorrencia.id))
+        for error in errors:
+            flash(error, "warning")
+    return render_template(
+        "ocorrencias/form.html",
+        form_data=form_data,
+        entregas=Entrega.query.order_by(Entrega.id.desc()).all(),
+        title="Editar ocorrência",
+    )
+
+
+@app.route("/ocorrencias/<int:ocorrencia_id>/encerrar", methods=["POST"])
+def ocorrencias_encerrar(ocorrencia_id):
+    ocorrencia = db.get_or_404(Ocorrencia, ocorrencia_id)
+    if ocorrencia.status == "ENCERRADA":
+        flash("A ocorrência já está encerrada.", "warning")
+    else:
+        ocorrencia.status = "ENCERRADA"
+        db.session.commit()
+        flash("Ocorrência encerrada com sucesso.", "success")
+    return redirect(url_for("ocorrencias_view", ocorrencia_id=ocorrencia.id))
 
 
 
@@ -735,6 +875,9 @@ def new_entity(entity):
     """
     if entity == "clientes":
         return redirect(url_for("clientes_novo"))
+
+    if entity == "ocorrencias":
+        return redirect(url_for("ocorrencias_novo"))
 
     if entity not in MODEL_MAP:
         return "Recurso não encontrado", 404
