@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-8">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h1 class="h3">{{ title }}</h1>
+                <form method="post" class="row g-3">
+                    <div class="col-md-6">
+                        <label for="entrega_id" class="form-label">Entrega</label>
+                        <select id="entrega_id" name="entrega_id" class="form-select" required>
+                            <option value="">Selecione uma entrega</option>
+                            {% for entrega in entregas %}
+                            <option value="{{ entrega.id }}" {% if form_data.entrega_id|string == entrega.id|string %}selected{% endif %}>
+                                Entrega #{{ entrega.id }} - Pedido {{ entrega.pedido.numero if entrega.pedido else entrega.pedido_id }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tipo" class="form-label">Tipo</label>
+                        <input id="tipo" name="tipo" value="{{ form_data.tipo }}" class="form-control" maxlength="80" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="data" class="form-label">Data</label>
+                        <input id="data" name="data" type="date" value="{{ form_data.data }}" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="status" class="form-label">Status</label>
+                        <select id="status" name="status" class="form-select" required>
+                            {% if form_data.status == 'ABERTA' %}<option value="ABERTA" selected>Aberta</option>{% endif %}
+                            <option value="ENCERRADA" {% if form_data.status == 'ENCERRADA' %}selected{% endif %}>Encerrada</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="descricao" class="form-label">Descrição</label>
+                        <textarea id="descricao" name="descricao" maxlength="255" class="form-control" rows="4" required>{{ form_data.descricao }}</textarea>
+                    </div>
+                    <div class="col-12 pt-2">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <a href="{{ url_for('ocorrencias_list') }}" class="btn btn-outline-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
