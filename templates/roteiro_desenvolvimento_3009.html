@@ -1463,6 +1463,259 @@ git push</code></pre>
     </div>
 
 
+
+    <!-- =========================================================
+         FINALIZAÇÃO DO EXERCÍCIO
+         ========================================================= -->
+
+    <div class="card shadow-sm mb-4 border-primary">
+
+        <div class="card-header fw-semibold text-primary">
+            🏁 O exercício terminou. E agora?
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>Terminar a funcionalidade não significa terminar a atividade.</strong>
+                Depois de desenvolver e testar, o grupo precisa preparar o trabalho para
+                ser entregue, revisado e integrado ao projeto.
+            </p>
+
+            <div class="border rounded bg-light p-3 mb-4 text-center">
+                <svg viewBox="0 0 1100 260" class="img-fluid" role="img"
+                     aria-label="Fluxo de finalização da funcionalidade">
+                    <rect x="30" y="70" width="180" height="75" rx="14"
+                          fill="#d1e7dd" stroke="#198754" stroke-width="3"/>
+                    <text x="120" y="103" text-anchor="middle" font-size="18" font-weight="bold">Desenvolver</text>
+                    <text x="120" y="127" text-anchor="middle" font-size="14">funcionalidade</text>
+
+                    <line x1="210" y1="107" x2="305" y2="107" stroke="#6c757d" stroke-width="5"/>
+                    <polygon points="305,107 283,94 283,120" fill="#6c757d"/>
+
+                    <rect x="305" y="70" width="180" height="75" rx="14"
+                          fill="#d1e7dd" stroke="#198754" stroke-width="3"/>
+                    <text x="395" y="103" text-anchor="middle" font-size="18" font-weight="bold">Testar</text>
+                    <text x="395" y="127" text-anchor="middle" font-size="14">navegador + pytest</text>
+
+                    <line x1="485" y1="107" x2="580" y2="107" stroke="#6c757d" stroke-width="5"/>
+                    <polygon points="580,107 558,94 558,120" fill="#6c757d"/>
+
+                    <rect x="580" y="70" width="180" height="75" rx="14"
+                          fill="#fff3cd" stroke="#856404" stroke-width="3"/>
+                    <text x="670" y="103" text-anchor="middle" font-size="18" font-weight="bold">Commit</text>
+                    <text x="670" y="127" text-anchor="middle" font-size="14">registrar versão</text>
+
+                    <line x1="760" y1="107" x2="855" y2="107" stroke="#6c757d" stroke-width="5"/>
+                    <polygon points="855,107 833,94 833,120" fill="#6c757d"/>
+
+                    <rect x="855" y="70" width="180" height="75" rx="14"
+                          fill="#e2e3e5" stroke="#495057" stroke-width="3"/>
+                    <text x="945" y="103" text-anchor="middle" font-size="18" font-weight="bold">Push</text>
+                    <text x="945" y="127" text-anchor="middle" font-size="14">enviar ao GitHub</text>
+
+                    <text x="550" y="200" text-anchor="middle" font-size="18" font-weight="bold" fill="#245b9e">
+                        Push → Pull Request → revisão → correção (se necessário) → integração em develop
+                    </text>
+                </svg>
+            </div>
+
+            <h3 class="h5">1. Faça a última rodada de testes</h3>
+
+            <p>
+                Antes de entregar, execute a aplicação e teste a funcionalidade no navegador.
+                Se o projeto possuir testes automatizados, execute-os também.
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>python3 app.py</code></pre>
+
+            <p>Em outro terminal, se necessário:</p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>python3 -m pytest</code></pre>
+
+            <div class="alert alert-success">
+                <strong>Resultado esperado:</strong> a funcionalidade deve funcionar no navegador
+                e os testes automatizados devem passar antes da entrega.
+            </div>
+
+            <h3 class="h5 mt-4">2. Confira exatamente o que será entregue</h3>
+
+            <pre class="bg-dark text-light rounded p-3"><code>git status
+git diff</code></pre>
+
+            <p>
+                O <code>git status</code> mostra os arquivos modificados.
+                O <code>git diff</code> permite revisar o conteúdo alterado.
+            </p>
+
+            <div class="alert alert-warning">
+                <strong>Antes do commit:</strong>
+                verifique se você não alterou arquivos que não fazem parte do seu desafio.
+            </div>
+
+            <h3 class="h5 mt-4">3. Registre a funcionalidade com commit</h3>
+
+            <pre class="bg-dark text-light rounded p-3"><code>git add .
+git commit -m "Implementa manutenção de veículos"</code></pre>
+
+            <p>
+                Substitua a mensagem pelo nome da funcionalidade desenvolvida pelo seu grupo.
+            </p>
+
+            <h3 class="h5 mt-4">4. Envie a branch para o GitHub</h3>
+
+            <p>
+                Se for o primeiro envio dessa branch:
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>git push -u origin feature/manutencao-veiculos</code></pre>
+
+            <p>
+                Depois que a branch já estiver vinculada ao GitHub, os próximos envios podem utilizar:
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>git push</code></pre>
+
+            <div class="alert alert-info">
+                <strong>Atenção:</strong>
+                substitua <code>feature/manutencao-veiculos</code> pelo nome da branch do seu grupo.
+            </div>
+
+            <h3 class="h5 mt-4">5. Crie o Pull Request</h3>
+
+            <p>
+                Depois do <code>push</code>, abra o repositório no GitHub e crie um Pull Request.
+                Confira cuidadosamente:
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>base: develop
+compare: feature/manutencao-veiculos</code></pre>
+
+            <p>
+                O título deve identificar claramente a funcionalidade. Exemplo:
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>Implementa manutenção de veículos</code></pre>
+
+            <p>Na descrição do Pull Request, informe pelo menos:</p>
+
+            <ul>
+                <li>qual funcionalidade foi desenvolvida;</li>
+                <li>quais arquivos principais foram alterados;</li>
+                <li>como a funcionalidade foi testada;</li>
+                <li>se existe alguma limitação ou ponto que precisa de atenção.</li>
+            </ul>
+
+            <h3 class="h5 mt-4">6. Depois de abrir o Pull Request, o trabalho ainda não acabou</h3>
+
+            <p>
+                O professor ou responsável pela integração poderá revisar o código e solicitar alterações.
+                Se isso acontecer, <strong>continue trabalhando na mesma branch</strong>.
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code># corrigir o código
+
+git status
+git diff
+git add .
+git commit -m "Corrige validação da funcionalidade"
+git push</code></pre>
+
+            <p>
+                O Pull Request existente será atualizado automaticamente. Não é necessário criar outro PR
+                para cada correção.
+            </p>
+
+            <h3 class="h5 mt-4">7. Quando o Pull Request for aprovado</h3>
+
+            <p>
+                Após a revisão e aprovação, a funcionalidade poderá ser integrada à <code>develop</code>.
+                O grupo deve aguardar a integração antes de considerar a entrega concluída.
+            </p>
+
+            <div class="border rounded p-3 bg-light">
+                <strong>Fluxo de entrega:</strong>
+                <div class="mt-2">
+                    <code>feature/grupo</code>
+                    → <code>git push</code>
+                    → <strong>Pull Request</strong>
+                    → <strong>revisão</strong>
+                    → <strong>correções</strong>, se necessárias
+                    → <strong>merge em develop</strong>
+                </div>
+            </div>
+
+            <h3 class="h5 mt-4">8. Após a integração: atualizar sua cópia local</h3>
+
+            <p>
+                Depois que a funcionalidade estiver integrada, volte para a <code>develop</code>
+                e atualize sua cópia local:
+            </p>
+
+            <pre class="bg-dark text-light rounded p-3"><code>git checkout develop
+git pull origin develop</code></pre>
+
+            <p>
+                Isso garante que seu ambiente local contenha a versão integrada mais recente do projeto.
+            </p>
+
+            <h3 class="h5 mt-4">🎓 O que será considerado como entrega do grupo?</h3>
+
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Funcionalidade implementada
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Aplicação testada no navegador
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Testes automatizados executados
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Alterações revisadas com <code>git status</code> e <code>git diff</code>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Commit realizado
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Branch enviada ao GitHub
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Pull Request aberto para <code>develop</code>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="border rounded p-3 h-100">
+                        ☑️ Revisão e integração concluídas
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-dark mt-4 mb-0">
+                <strong>Importante:</strong>
+                para esta atividade, “terminei meu código” e “entreguei minha funcionalidade”
+                são coisas diferentes. A entrega acontece quando o trabalho passa pelo fluxo
+                de <strong>teste → commit → push → Pull Request → revisão → integração</strong>.
+            </div>
+
+        </div>
+
+    </div>
+
+
     <!-- =========================================================
          CHECKLIST
          ========================================================= -->
