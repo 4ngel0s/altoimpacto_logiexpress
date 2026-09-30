@@ -235,7 +235,7 @@ return render_template(
                         <rect x="615" y="335" width="250" height="175" rx="12" fill="#fff" stroke="#f08a24" stroke-width="3"/>
                         <rect x="615" y="335" width="250" height="42" rx="12" fill="#f08a24"/>
                         <text x="740" y="362" text-anchor="middle" font-family="Arial" font-size="18" font-weight="700" fill="#fff">ITEM_PEDIDO</text>
-                        <text x="635" y="400" font-family="Arial" font-size="14">id • PK</text><text x="635" y="422" font-family="Arial" font-size="14">pedido_id • FK</text><text x="635" y="444" font-family="Arial" font-size="14">produto_id • FK</text><text x="635" y="466" font-family="Arial" font-size="14">quantidade</text><text x="635" y="488" font-family="Arial" font-size="14">preco_unitario</text>
+                        <text x="635" y="400" font-family="Arial" font-size="14">id • PK</text><text x="635" y="422" font-family="Arial" font-size="14">pedido_id • FK</text><text x="635" y="444" font-family="Arial" font-size="14">produto_id • FK</text><text x="635" y="466" font-family="Arial" font-size="14">quantidade</text><text x="635" y="488" font-family="Arial" font-size="14">valor_unitario</text>
 
                         <!-- ROTAS -->
                         <rect x="905" y="335" width="250" height="175" rx="12" fill="#fff" stroke="#2d9b68" stroke-width="3"/>
@@ -257,22 +257,34 @@ return render_template(
 
                         <!-- RELATIONSHIP LINES -->
                         <g stroke="#6b7280" stroke-width="2.5" fill="none">
-                            <path d="M285 205 H325"/><path d="M160 280 V335"/><path d="M450 280 V335"/>
-                            <path d="M575 420 H615"/><path d="M865 420 H905"/><path d="M1155 420 H1195"/>
-                            <path d="M740 510 V565 H575"/><path d="M1330 510 V565 H575"/>
-                            <path d="M1330 510 V760 H575"/>
+                            <!-- Cliente 1:N Pedido -->
+                            <path d="M285 205 H325"/>
+                            <!-- Pedido 1:N ItemPedido -->
+                            <path d="M575 420 H615"/>
+                            <!-- Produto 1:N ItemPedido -->
+                            <path d="M740 280 V335"/>
+                            <!-- Pedido 1:1 Entrega -->
+                            <path d="M575 450 C800 540 1080 520 1195 450"/>
+                            <!-- Motorista 1:N Entrega -->
+                            <path d="M450 280 C850 300 1100 300 1270 335"/>
+                            <!-- Veiculo 1:N Entrega -->
+                            <path d="M740 280 C900 300 1180 305 1320 335"/>
+                            <!-- Rota 1:N Entrega -->
+                            <path d="M1155 420 H1195"/>
+                            <!-- Entrega 1:N Ocorrencia -->
+                            <path d="M1330 510 C1180 620 760 650 575 650"/>
                         </g>
 
                         <!-- RELATIONSHIP LABELS -->
                         <g font-family="Arial" font-size="13" fill="#44515d">
                             <text x="294" y="195">1:N</text>
-                            <text x="170" y="320">1:N</text>
-                            <text x="460" y="320">1:N</text>
                             <text x="585" y="410">1:N</text>
-                            <text x="875" y="410">N:1</text>
-                            <text x="1165" y="410">N:1</text>
-                            <text x="600" y="555">1:N</text>
-                            <text x="1340" y="555">1:N</text>
+                            <text x="750" y="320">1:N</text>
+                            <text x="1010" y="515">1:1</text>
+                            <text x="1050" y="300">1:N</text>
+                            <text x="1160" y="310">1:N</text>
+                            <text x="1165" y="410">1:N</text>
+                            <text x="900" y="635">1:N</text>
                         </g>
 
                         <!-- LEGEND -->
@@ -293,6 +305,36 @@ return render_template(
                     </svg>
                 </div>                </div>
             </details>
+
+            <h3 class="h6">Como interpretar o modelo de dados?</h3>
+            <p>
+                O diagrama apresenta <strong>todas as 11 tabelas/modelos</strong> existentes nesta versão do LOGIEXPRESS.
+                As caixas mostram as entidades, seus principais campos e as chaves que permitem relacioná-las.
+            </p>
+            <div class="table-responsive mb-4">
+                <table class="table table-bordered align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Tabela</th>
+                            <th>Função no sistema</th>
+                            <th>Relacionamentos principais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>Cliente</code></td><td>Empresas/pessoas que recebem os pedidos.</td><td>1:N com <code>Pedido</code>.</td></tr>
+                        <tr><td><code>Motorista</code></td><td>Profissionais responsáveis pelas entregas.</td><td>1:N com <code>Entrega</code>.</td></tr>
+                        <tr><td><code>Veiculo</code></td><td>Veículos utilizados na operação.</td><td>1:N com <code>Entrega</code>.</td></tr>
+                        <tr><td><code>Produto</code></td><td>Itens disponíveis para comercialização/estoque.</td><td>1:N com <code>ItemPedido</code>.</td></tr>
+                        <tr><td><code>CentroDistribuicao</code></td><td>Centros de distribuição cadastrados.</td><td>Cadastro independente nesta versão.</td></tr>
+                        <tr><td><code>Transportadora</code></td><td>Transportadoras cadastradas.</td><td>Cadastro independente nesta versão.</td></tr>
+                        <tr><td><code>Pedido</code></td><td>Pedido realizado por um cliente.</td><td>N:1 com Cliente; 1:N com ItemPedido; 1:1 com Entrega.</td></tr>
+                        <tr><td><code>ItemPedido</code></td><td>Detalha os produtos e quantidades de cada pedido.</td><td>N:1 com Pedido e N:1 com Produto.</td></tr>
+                        <tr><td><code>Rota</code></td><td>Define origem, destino e características do percurso.</td><td>1:N com Entrega.</td></tr>
+                        <tr><td><code>Entrega</code></td><td>Representa a execução logística de um pedido.</td><td>N:1 com Motorista, Veiculo e Rota; 1:1 com Pedido; 1:N com Ocorrencia.</td></tr>
+                        <tr><td><code>Ocorrencia</code></td><td>Registra problemas ou eventos de uma entrega.</td><td>N:1 com Entrega.</td></tr>
+                    </tbody>
+                </table>
+            </div>
 
             <h3 class="h6">Como as tabelas são criadas?</h3>
             <pre class="bg-light p-3 rounded">with app.app_context():
@@ -492,9 +534,14 @@ if quantidade_pedidos > 0:
 {% endif %}{% endraw %}</pre>
 
             <h3 class="h6">Exemplo 4 — link para uma rota Flask</h3>
-            <pre class="bg-light p-3 rounded">{% raw %}&lt;a href="{{ url_for('clientes_editar', cliente_id=cliente.id) }}"&gt;Editar&lt;/a&gt;
-    Editar
-</a>{% endraw %}</pre>
+            <pre class="bg-light p-3 rounded">{% raw %}&lt;a href="{{ url_for('clientes_editar', cliente_id=cliente.id) }}"&gt;Editar&lt;/a&gt;{% endraw %}</pre>
+            <p>
+                No exemplo acima, o código está sendo <strong>demonstrado</strong> e não é um link da própria documentação.
+                Para testar uma rota real, use o botão abaixo.
+            </p>
+            <a class="btn btn-outline-primary btn-sm mb-2" href="{{ url_for('clientes_editar', cliente_id=1) }}">
+                🔗 Abrir exemplo real — editar Cliente 1
+            </a>
 
             <h3 class="h6">Como alterar ou criar?</h3>
             <ol>
